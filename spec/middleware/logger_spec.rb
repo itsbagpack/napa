@@ -28,8 +28,19 @@ describe Napa::Middleware::Logger do
   end
 
   describe 'logs the response' do
-    it 'logs the status headers, and body, according to the Napa::Logger.response format'
-    it 'logs an empty body if for some reason I can\'t fathom, the body is nil'
+    it 'logs the status headers, and body, according to the Napa::Logger.response format' do
+      app      = mockapp(status: 123, headers: {'the' => 'headers'}, body: ['the body', 'the hip bone'])
+      request  = middleware_request_for(app)
+      response = request.get '/whatevz'
+      expect(debug_logged).to eq Napa::Logger.response(123, {'the' => 'headers'}, ['the body', 'the hip bone'])
+    end
+    it 'logs the body as an array, regardless of what it was initially given' do
+      body = Object.new
+      def body.each; yield "a"; yield "b"; yield "c"; nil end
+      app      = mockapp body: body
+      response = middleware_request_for(app).get('/')
+      expect(debug_logged[:response][:response]).to eq ['a', 'b', 'c']
+    end
   end
 
   it 'forwards the app response' do
