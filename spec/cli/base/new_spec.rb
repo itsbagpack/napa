@@ -1,11 +1,12 @@
 require 'spec_helper'
-require 'napa/generators/scaffold_generator'
-require 'napa/cli'
+require 'napa/cli/base/new'
 
-describe Napa::Generators::ScaffoldGenerator do
+describe Napa::CLI::Base do
   let(:app_name) { 'my_test_app' }
   let(:app_path) { 'spec/my_different_directory' }
   let(:options) { {} }
+
+  silence_thor
 
   before do
     scaffold = Napa::CLI::Base.new(args, options)

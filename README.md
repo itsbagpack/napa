@@ -1,9 +1,9 @@
+![napa-v2-01-cropped-resized](https://cloud.githubusercontent.com/assets/36847/6060268/d8cd3e00-ad00-11e4-96b9-64affc2cc802.png)
+
 [![Build Status](https://travis-ci.org/bellycard/napa.png?branch=master)](https://travis-ci.org/bellycard/napa)
 [![Dependency Status](https://gemnasium.com/bellycard/napa.png)](https://gemnasium.com/bellycard/napa)
 [![Code Climate](https://codeclimate.com/github/bellycard/napa/badges/gpa.svg)](https://codeclimate.com/github/bellycard/napa)
 [![Test Coverage](https://codeclimate.com/github/bellycard/napa/badges/coverage.svg)](https://codeclimate.com/github/bellycard/napa)
-
-# Napa
 
 Napa is a simple framework for building Rack based APIs using Grape, Roar and ActiveRecord. It's designed to make it easy to quickly create and deploy new API services by providing **generators**, **middlewares** and a **console** similar to what you would expect from a Rails app.
 
@@ -37,14 +37,13 @@ Run `napa` terminal prompt to see available features:
 
 ```
 Commands:
-  napa console [environment]                                                            # Start the Napa console
-  napa generate api <api_name>                                                          # Create a Grape API, Model and Representer
-  napa generate migration <migration_name> [field[:type][:index] field[:type][:index]]  # Create a Database Migration
-  napa generate readme                                                                  # Create a formatted README
-  napa deploy <environment>                                                             # Deploy to <environment> by setting a git tag
-  napa help [COMMAND]                                                                   # Describe available commands or one specific command
-  napa new <app_name> [app_path]                                                        # Create a scaffold for a new Napa service
-  napa version                                                                          # Shows the Napa version number
+  napa console [ENVIRONMENT]  # Start the Napa console
+  napa deploy [TARGET]        # Deploys A Service to a given target (i.e. production, staging, etc.)
+  napa generate [COMMAND]     # Generate new code
+  napa help [COMMAND]         # Describe available commands or one specific command
+  napa new <NAME> [PATH]      # Create a new Napa application
+  napa server                 # Start the Napa server
+  napa version                # Shows the Napa version number
 ```
 
 
@@ -91,9 +90,9 @@ rake routes             # display all routes for Grape
 Napa includes a number of Rack middlewares that can be enabled to add functionality to your project.
 
 ### Authentication
-The Authentication middleware will add a simple header based authentication layer to all requests. This is just looking for a header of `'Password' = 'Your Password'`. The passwords are defined in the `.env` file. You can allow multiple passwords by supplying a comma separated list. For example:
+The Authentication middleware will add a simple header based authentication layer to all requests. This is just looking for a header of `'Passwords' = 'Your Password'`. The passwords are defined in the `.env` file. You can allow multiple passwords by supplying a comma separated list. For example:
 
-`HEADER_PASSWORDS='password1,password2'`
+`ALLOWED_HEADER_PASSWORDS='password1,password2'`
 
 If your application doesn't require authentication, you can simply remove the middleware.
 

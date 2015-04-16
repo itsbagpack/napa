@@ -1,11 +1,12 @@
 require 'spec_helper'
-require 'napa/generators/migration_generator'
-require 'napa/cli'
+require 'napa/cli/migration'
 
-describe Napa::Generators::MigrationGenerator do
+describe Napa::CLI::Migration do
 
   let(:migration_filename) { 'foo' }
   let(:test_migrations_directory) { 'spec/tmp' }
+
+  silence_thor
 
   before do
     allow_any_instance_of(described_class).to receive(:output_directory).and_return(test_migrations_directory)
@@ -18,7 +19,8 @@ describe Napa::Generators::MigrationGenerator do
 
   describe 'AddFooToBar flew:string:index brew:integer' do
     before do
-      Napa::CLI::Base.new.generate("migration", 'AddFooToBar', 'flew:string:index', 'brew:integer')
+      Napa::CLI::Migration.new(['AddFooToBar', 'flew:string:index', 'brew:integer']).invoke_all
+
       expected_migration_file = File.join(test_migrations_directory, 'foo.rb')
       @migration_code = File.read(expected_migration_file)
     end
@@ -39,7 +41,7 @@ describe Napa::Generators::MigrationGenerator do
 
   describe 'RemoveFooFromBar flew:string brew:integer' do
     before do
-      Napa::CLI::Base.new.generate("migration", 'RemoveFooFromBar', 'flew:string', 'brew:integer')
+      Napa::CLI::Migration.new(['RemoveFooFromBar', 'flew:string', 'brew:integer']).invoke_all
       expected_migration_file = File.join(test_migrations_directory, 'foo.rb')
       @migration_code = File.read(expected_migration_file)
     end
@@ -56,7 +58,7 @@ describe Napa::Generators::MigrationGenerator do
 
   describe 'CreateJoinTableFooBar foo bar' do
     before do
-      Napa::CLI::Base.new.generate("migration", 'CreateJoinTableFooBar', 'foo', 'bar')
+      Napa::CLI::Migration.new(['CreateJoinTableFooBar', 'foo', 'bar']).invoke_all
       expected_migration_file = File.join(test_migrations_directory, 'foo.rb')
       @migration_code = File.read(expected_migration_file)
     end
@@ -77,7 +79,7 @@ describe Napa::Generators::MigrationGenerator do
 
   describe 'CreateSkrillex drops:integer hair:string:index' do
     before do
-      Napa::CLI::Base.new.generate("migration", 'CreateSkrillex', 'drops:integer', 'hair:string:index')
+      Napa::CLI::Migration.new(['CreateSkrillex', 'drops:integer', 'hair:string:index']).invoke_all
       expected_migration_file = File.join(test_migrations_directory, 'foo.rb')
       @migration_code = File.read(expected_migration_file)
     end
@@ -99,7 +101,5 @@ describe Napa::Generators::MigrationGenerator do
       expect(@migration_code).to match(/add_index :skrillexes, :hair/)
     end
   end
-
-  describe 
 
 end

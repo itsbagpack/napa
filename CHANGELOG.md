@@ -1,6 +1,21 @@
 master
 ===
 
+0.4.3
+===
+* [Allow Napa::Authentication to receive multiple and accept multiple passwords](https://github.com/bellycard/napa/pull/190)
+* [rename to silence_thor](https://github.com/bellycard/napa/pull/189)
+* [Hey! Spec suite! Leave them streams alone!](https://github.com/bellycard/napa/pull/175)
+* [Refactoring CLI](https://github.com/bellycard/napa/pull/186)
+
+0.4.2
+===
+* [Explicitly require `filter_parameters.rb` instead of relying on `action_dispatch` autoload](https://github.com/bellycard/napa/pull/181)
+* [Default rake task runs specs](https://github.com/bellycard/napa/pull/176)
+* [Set Napa.env to the environment arg we pass in the console](https://github.com/bellycard/napa/pull/179)
+* [Add thor command to start shotgun server](https://github.com/bellycard/napa/pull/177)
+* [Lock honeybadger and roar in the meantime](https://github.com/bellycard/napa/pull/185)
+
 0.4.1
 ===
 * Added a reasons object to error responses to represent active record validation errors for individual attributes
